@@ -7,8 +7,8 @@ public class Predator extends Creature{
         return attackPower;
     }
 
-    public Predator(int speed, int numberOfHP, int attackPower) {
-        super(speed, numberOfHP);
+    public Predator(int locationOfX, int locationOfY, int speed, int numberOfHP, int attackPower) {
+        super(locationOfX, locationOfY, speed, numberOfHP);
         this.attackPower = attackPower;
     }
 

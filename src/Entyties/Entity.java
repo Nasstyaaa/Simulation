@@ -1,12 +1,20 @@
 package Entyties;
 
 public abstract class Entity {
-    static class Rock {
+    protected int locationByX;
+    protected int locationByY;
+
+    public int getLocationByX() {
+        return locationByX;
     }
 
-    static class Grass {
+    public int getLocationByY() {
+        return locationByY;
     }
 
-    static class Tree {
+
+    public Entity(int locationByX, int locationByY) {
+        this.locationByX = locationByX;
+        this.locationByY = locationByY;
     }
 }
