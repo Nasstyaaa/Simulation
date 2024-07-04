@@ -1,4 +1,6 @@
-package Entyties;
+package Entities;
+
+import Simulation.Map;
 
 public abstract class Entity {
     protected int locationByX;
@@ -11,6 +13,8 @@ public abstract class Entity {
     public int getLocationByY() {
         return locationByY;
     }
+
+    public abstract void createObjectOnMap(Map map);
 
 
     public Entity(int locationByX, int locationByY) {

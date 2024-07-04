@@ -1,4 +1,4 @@
-package Entyties;
+package Entities;
 
 public abstract class Creature extends Entity {
     protected int speed;

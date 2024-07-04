@@ -1,6 +1,6 @@
 package Simulation;
 
-import Entyties.Entity;
+import Entities.Entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
