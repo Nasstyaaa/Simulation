@@ -7,5 +7,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface FindObject {
-    public abstract ArrayList<Integer> find(Map map, Entity entity);
+    public Entity find(Map map, Entity entity);
 }

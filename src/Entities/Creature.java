@@ -1,5 +1,7 @@
 package Entities;
 
+import Simulation.Map;
+
 public abstract class Creature extends Entity {
     protected int speed;
     protected int numberOfHP;
@@ -12,6 +14,10 @@ public abstract class Creature extends Entity {
         return numberOfHP;
     }
 
+    public void setNumberOfHP(int numberOfHP) {
+        this.numberOfHP = numberOfHP;
+    }
+
     public Creature() {
     }
 
@@ -21,5 +27,5 @@ public abstract class Creature extends Entity {
         this.speed = speed;
     }
 
-    public abstract void makeMove();
+    public abstract void makeMove(Map map);
 }

@@ -9,14 +9,14 @@ import java.util.List;
 
 public class FindHerbivore implements FindObject {
     @Override
-    public ArrayList<Integer> find(Map map, Entity entity) {
+    public Entity find(Map map, Entity entity) {
         ArrayList<Entity> queueEntities = new ArrayList<>();
         int indexOfEntity = 0;
         queueEntities.add(entity);
         while (indexOfEntity != map.getLengthX() * map.getLengthY()) {
             Entity checkedEntity = queueEntities.get(indexOfEntity);
             if (checkedEntity instanceof Herbivore) {
-                return new ArrayList<>(List.of(checkedEntity.getLocationByX(), checkedEntity.getLocationByY()));
+                return checkedEntity;
             } else {
                 int locationX = checkedEntity.getLocationByX();
                 int locationY = checkedEntity.getLocationByY();
@@ -34,6 +34,6 @@ public class FindHerbivore implements FindObject {
                 }
             }
         }
-        return new ArrayList<>();
+        return null;
     }
 }

@@ -48,20 +48,8 @@ public class Map {
         }
     }
 
-//    public ArrayList<Entity> findNeighboringObjects(Entity entity) {
-//        ArrayList<Entity> listOfNeighbors = new ArrayList<>();
-//        int locationX = entity.getLocationByX();
-//        int locationY = entity.getLocationByY();
-//        int[][] coordinates = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-//        for (int[] coordinate : coordinates) {
-//            int newX = locationX + coordinate[0];
-//            int newY = locationY + coordinate[1];
-//            if ((newX < lengthX && newX >= 0) && (newY >=0 && newY < lengthY)) {
-//                Entity neighbor = mainCollectionOfLocation.get(newX).get(newY);
-//                if (neighbor != null)
-//                    listOfNeighbors.add(neighbor);
-//            }
-//        }
-//        return listOfNeighbors;
-//    }
+    public void removeObjectsOnMap(Entity entity) {
+        if (entity != null)
+            mainCollectionOfLocation.remove(entity);
+    }
 }
