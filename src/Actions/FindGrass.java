@@ -1,13 +1,15 @@
 package Actions;
 
 import Entities.Entity;
+import Entities.Grass;
 import Entities.Herbivore;
 import Simulation.Map;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindHerbivore implements FindObject {
+public class FindGrass implements FindObject{
+
     @Override
     public ArrayList<Integer> find(Map map, Entity entity) {
         ArrayList<Entity> queueEntities = new ArrayList<>();
@@ -15,7 +17,7 @@ public class FindHerbivore implements FindObject {
         queueEntities.add(entity);
         while (indexOfEntity != map.getLengthX() * map.getLengthY()) {
             Entity checkedEntity = queueEntities.get(indexOfEntity);
-            if (checkedEntity instanceof Herbivore) {
+            if (checkedEntity instanceof Grass) {
                 return new ArrayList<>(List.of(checkedEntity.getLocationByX(), checkedEntity.getLocationByY()));
             } else {
                 int locationX = checkedEntity.getLocationByX();
