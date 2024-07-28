@@ -16,7 +16,9 @@ public abstract class Entity {
 
     public abstract void createObjectOnMap(Map map);
 
+    public Entity(){
 
+    }
     public Entity(int locationByX, int locationByY) {
         this.locationByX = locationByX;
         this.locationByY = locationByY;

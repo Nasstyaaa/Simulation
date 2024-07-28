@@ -17,6 +17,7 @@ public class Tree extends Entity{
         map.addObjectsOnMap(listOfTree);
     }
 
+    public Tree(){}
     public Tree(int locationByX, int locationByY) {
         super(locationByX, locationByY);
     }

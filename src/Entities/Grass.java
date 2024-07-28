@@ -17,6 +17,8 @@ public class Grass extends Entity{
         map.addObjectsOnMap(listOfGrass);
     }
 
+    public Grass(){}
+
     public Grass(int locationByX, int locationByY) {
         super(locationByX, locationByY);
     }

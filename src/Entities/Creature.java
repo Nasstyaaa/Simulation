@@ -12,6 +12,9 @@ public abstract class Creature extends Entity {
         return numberOfHP;
     }
 
+    public Creature() {
+    }
+
     public Creature(int locationOfX, int locationOfY, int speed, int numberOfHP){
         super(locationOfX, locationOfY);
         this.numberOfHP = numberOfHP;

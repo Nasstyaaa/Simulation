@@ -16,6 +16,7 @@ public class Rock extends Entity{
         }
         map.addObjectsOnMap(listOfRock);
     }
+    public Rock(){}
 
     public Rock(int locationByX, int locationByY) {
         super(locationByX, locationByY);

@@ -5,13 +5,16 @@ import Simulation.Map;
 import java.util.ArrayList;
 
 public class Herbivore extends Creature {
+
+    public Herbivore() {
+    }
+
     public Herbivore(int locationOfX, int locationOfY, int speed, int numberOfHP) {
         super(locationOfX, locationOfY, speed, numberOfHP);
     }
 
     @Override
     public void makeMove() {
-
     }
 
     @Override

@@ -20,6 +20,9 @@ public class Predator extends Creature{
     public void makeMove() {
     }
 
+    public Predator() {
+    }
+
     @Override
     public void createObjectOnMap(Map map) {
         int sizeMap = (map.getLengthY() * map.getLengthX()) / 8;
