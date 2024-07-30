@@ -1,24 +1,19 @@
 package Entities;
 
-import Simulation.Map;
+import Simulation.MapWorld;
 
 import java.util.ArrayList;
 
 public class Rock extends Entity{
     @Override
-    public void createObjectOnMap(Map map) {
+    public ArrayList<Rock> createObjectOnMap(MapWorld map) {
         int sizeMap = (map.getLengthY() * map.getLengthX()) / 10;
-        ArrayList<Entity> listOfRock = new ArrayList<>();
+        ArrayList<Rock> listOfRock = new ArrayList<>();
         for (int i = 0; i < sizeMap; i++){
-            int locationXRock = (int) (Math.random() * (map.getLengthX()));
-            int locationYRock = (int) (Math.random() * (map.getLengthY()));
-            listOfRock.add(new Rock(locationXRock, locationYRock));
+            listOfRock.add(new Rock());
         }
         map.addObjectsOnMap(listOfRock);
+        return listOfRock;
     }
     public Rock(){}
-
-    public Rock(int locationByX, int locationByY) {
-        super(locationByX, locationByY);
-    }
 }

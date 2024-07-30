@@ -1,25 +1,20 @@
 package Entities;
 
-import Simulation.Map;
+import Simulation.MapWorld;
 
 import java.util.ArrayList;
 
 public class Grass extends Entity{
     @Override
-    public void createObjectOnMap(Map map) {
+    public ArrayList<Grass> createObjectOnMap(MapWorld map) {
         int sizeMap = (map.getLengthY() * map.getLengthX()) / 7;
-        ArrayList<Entity> listOfGrass = new ArrayList<>();
+        ArrayList<Grass> listOfGrass = new ArrayList<>();
         for(int i = 0; i < sizeMap; i++){
-            int locationX = (int) (Math.random() * (map.getLengthX()));
-            int locationY = (int) (Math.random() * (map.getLengthY()));
-            listOfGrass.add(new Grass(locationX, locationY));
+            listOfGrass.add(new Grass());
         }
         map.addObjectsOnMap(listOfGrass);
+        return listOfGrass;
     }
 
     public Grass(){}
-
-    public Grass(int locationByX, int locationByY) {
-        super(locationByX, locationByY);
-    }
 }

@@ -1,26 +1,14 @@
 package Entities;
 
-import Simulation.Map;
+import Simulation.MapWorld;
+
+import java.util.ArrayList;
 
 public abstract class Entity {
-    protected int locationByX;
-    protected int locationByY;
 
-    public int getLocationByX() {
-        return locationByX;
-    }
-
-    public int getLocationByY() {
-        return locationByY;
-    }
-
-    public abstract void createObjectOnMap(Map map);
+    public abstract ArrayList<? extends Entity> createObjectOnMap(MapWorld map);
 
     public Entity(){
 
-    }
-    public Entity(int locationByX, int locationByY) {
-        this.locationByX = locationByX;
-        this.locationByY = locationByY;
     }
 }

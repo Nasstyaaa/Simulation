@@ -1,24 +1,20 @@
 package Entities;
 
-import Simulation.Map;
+import Simulation.MapWorld;
 
 import java.util.ArrayList;
 
 public class Tree extends Entity{
     @Override
-    public void createObjectOnMap(Map map) {
+    public ArrayList<Tree> createObjectOnMap(MapWorld map) {
         int sizeMap = (map.getLengthY() * map.getLengthX()) / 10;
-        ArrayList<Entity> listOfTree = new ArrayList<>();
+        ArrayList<Tree> listOfTree = new ArrayList<>();
         for (int i = 0; i < sizeMap; i++){
-            int locationXRock = (int) (Math.random() * (map.getLengthX()));
-            int locationYRock = (int) (Math.random() * (map.getLengthY()));
-            listOfTree.add(new Tree(locationXRock, locationYRock));
+            listOfTree.add(new Tree());
         }
         map.addObjectsOnMap(listOfTree);
+        return listOfTree;
     }
 
     public Tree(){}
-    public Tree(int locationByX, int locationByY) {
-        super(locationByX, locationByY);
-    }
 }

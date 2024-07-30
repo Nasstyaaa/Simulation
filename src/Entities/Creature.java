@@ -1,6 +1,6 @@
 package Entities;
 
-import Simulation.Map;
+import Simulation.MapWorld;
 
 public abstract class Creature extends Entity {
     protected int speed;
@@ -21,11 +21,10 @@ public abstract class Creature extends Entity {
     public Creature() {
     }
 
-    public Creature(int locationOfX, int locationOfY, int speed, int numberOfHP){
-        super(locationOfX, locationOfY);
+    public Creature(int speed, int numberOfHP){
         this.numberOfHP = numberOfHP;
         this.speed = speed;
     }
 
-    public abstract void makeMove(Map map);
+    public abstract void makeMove(MapWorld map);
 }
