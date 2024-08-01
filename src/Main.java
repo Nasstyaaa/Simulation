@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        MapWorld map = new MapWorld(5, 5);
+        MapWorld map = new MapWorld(10, 10);
 
         Herbivore herbivore = new Herbivore();
         ArrayList<Herbivore> arrayOfHerbivore = herbivore.createObjectOnMap(map);
@@ -30,6 +30,6 @@ public class Main {
         render.fieldRendering(map);
 
         FindObject findObject = new FindObject();
-        findObject.find(map, arrayOfHerbivore.get(2), Grass.class);
+        System.out.println(findObject.find(map, arrayOfHerbivore.get(3), Grass.class));
     }
 }

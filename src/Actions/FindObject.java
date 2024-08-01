@@ -4,11 +4,10 @@ import Entities.Entity;
 import Simulation.MapWorld;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class FindObject {
-    public void find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
+    public ArrayList<String> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
         ArrayList<ArrayList<String>> roads = new ArrayList<>();
 
         Map<String, Boolean> visitedEntity = new HashMap<>();
@@ -26,44 +25,49 @@ public class FindObject {
 
         ArrayList<String> coordinatesList = new ArrayList<>();
         coordinatesList.add(locationX + "," + locationY);
-        System.out.println("координаты мыши: " + locationX + "," + locationY);
         roads.add(coordinatesList);
 
 
+        ArrayList<ArrayList<String>> newRoads = new ArrayList<>(roads);
         while (visitedEntity.containsValue(false)) {
             for (ArrayList<String> currentRoad : roads) {
+                newRoads.clear();
                 String[] currentCoordinates = currentRoad.get(currentRoad.size() - 1).split(",");
                 String currentLocationX = currentCoordinates[0];
                 String currentLocationY = currentCoordinates[1];
-                System.out.println("последние координаты: " + currentLocationX + "," + currentLocationY);
 
-                int[][] coordinatesNeighbours = {{-1, 0}, {1, 0}, {0, -1}, {1, 0}};
+                int[][] coordinatesNeighbours = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
                 for (int[] coordinate : coordinatesNeighbours) {
                     String neighbourX = String.valueOf((Integer.parseInt(currentLocationX) + coordinate[0]));
                     String neighbourY = String.valueOf((Integer.parseInt(currentLocationY) + coordinate[1]));
-                    if (Integer.parseInt(neighbourX) >= 0 && Integer.parseInt(neighbourY) >= 0) {
-                        visitedEntity.put(neighbourX + "," + neighbourY, true);
-
+                    if (Integer.parseInt(neighbourX) >= 0 && Integer.parseInt(neighbourY) >= 0 &&
+                            Integer.parseInt(neighbourX) <= map.getLengthX() - 1 && Integer.parseInt(neighbourY) <= map.getLengthY() - 1) {
                         Entity currentEntity = map.getMainCollectionOfLocation().get(neighbourX + "," + neighbourY);
-                        if(currentEntity != null && currentEntity.getClass().equals(type)){
-                            ArrayList<String> anotherRoad = new ArrayList<>(currentRoad);
-                            anotherRoad.add(neighbourX + "," + neighbourY);
-                            roads.add(anotherRoad);
-
-                            System.out.println("Найдена нужная дорога из: " + roads);
-                            break;
+                        if (currentEntity != null && currentEntity.getClass().equals(type)) {
+                            ArrayList<String> newRoad = new ArrayList<>(currentRoad);
+                            newRoad.add(neighbourX + "," + neighbourY);
+                            return newRoad;
+                        } else if (currentEntity == null && !visitedEntity.get(neighbourX + "," + neighbourY)) {
+                            ArrayList<String> newRoad = new ArrayList<>(currentRoad);
+                            newRoad.add(neighbourX + "," + neighbourY);
+                            addIfNotExists(newRoads, newRoad);
                         }
-                        else if (currentEntity == null) {
-                            ArrayList<String> anotherRoad = new ArrayList<>(currentRoad);
-                            anotherRoad.add(neighbourX + "," + neighbourY);
-
-                            roads.add(anotherRoad);
-                            System.out.println("текущие дороги " + roads);
-                        }
+                        visitedEntity.put(neighbourX + "," + neighbourY, true);
                     }
                 }
-                roads.remove(currentRoad);
+            }
+            roads.clear();
+            roads.addAll(newRoads);
+        }
+        return null;
+    }
+
+    private void addIfNotExists(ArrayList<ArrayList<String>> newRoads, ArrayList<String> newRoad) {
+        for (ArrayList<String> existingItem : newRoads) {
+            if (existingItem.equals(newRoad)) {
+                return;
             }
         }
+        newRoads.add(newRoad);
     }
 }
