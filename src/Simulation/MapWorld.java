@@ -44,6 +44,16 @@ public class MapWorld {
         }
     }
 
+    public String findKey(Entity entity) {
+        Set<String> keys = mainCollectionOfLocation.keySet();
+        for (String key : keys) {
+            Entity currentEntity = mainCollectionOfLocation.get(key);
+            if (currentEntity != null && currentEntity.equals(entity))
+                return key;
+        }
+        return null;
+    }
+
 //    public void removeObjectsOnMap(Entity entity) {
 //        if (entity != null)
 //            mainCollectionOfLocation.get(entity.getLocationByX()).set(entity.getLocationByY(), null);
