@@ -5,9 +5,9 @@ import Entities.Entity;
 import java.util.*;
 
 public class MapWorld {
-    private Map<String, Entity> mainCollectionOfLocation;
-    private int lengthX;
-    private int lengthY;
+    private static Map<String, Entity> mainCollectionOfLocation;
+    private static int lengthX;
+    private static int lengthY;
 
     public MapWorld(int lengthByX, int lengthByY) {
         mainCollectionOfLocation = new HashMap<>();
@@ -53,17 +53,4 @@ public class MapWorld {
         }
         return null;
     }
-
-//    public void removeObjectsOnMap(Entity entity) {
-//        if (entity != null)
-//            mainCollectionOfLocation.get(entity.getLocationByX()).set(entity.getLocationByY(), null);
-//    }
-//
-//    public void updateMap(List<? extends Entity> updateEntity) {
-//        for (Entity entity : updateEntity) {
-//            int locationX = entity.getLocationByX();
-//            int locationY = entity.getLocationByY();
-//            mainCollectionOfLocation.get(locationX).set(locationY, entity);
-//        }
-//    }
 }

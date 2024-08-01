@@ -1,5 +1,6 @@
 package Entities;
 
+import Actions.FindObject;
 import Simulation.MapWorld;
 
 import java.util.ArrayList;
@@ -20,7 +21,23 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void makeMove(MapWorld map) {
+    public synchronized void makeMove(MapWorld map) {
+        ArrayList<String> foundPath = FindObject.find(map, this, Herbivore.class);
+        if (foundPath != null) {
+            map.getMainCollectionOfLocation().remove(map.findKey(this));
+            if (foundPath.size() == 1) {
+                Herbivore foundHerbivore = (Herbivore) map.getMainCollectionOfLocation().get(foundPath.get(0));
+                if (foundHerbivore.getNumberOfHP() - attackPower <= 0)
+                    map.getMainCollectionOfLocation().put(foundPath.get(0), this);
+                else
+                    foundHerbivore.setNumberOfHP(foundHerbivore.getNumberOfHP() - attackPower);
+
+            } else if (foundPath.size() <= speed) {
+                map.getMainCollectionOfLocation().put(foundPath.get(foundPath.size()-2), this);
+            } else {
+                map.getMainCollectionOfLocation().put(foundPath.get(this.speed - 1), this);
+            }
+        }
     }
 
     @Override
@@ -28,7 +45,7 @@ public class Predator extends Creature {
         int sizeMap = (map.getLengthY() * map.getLengthX()) / 8;
         ArrayList<Predator> listOfPredator = new ArrayList<>();
         for (int i = 0; i < sizeMap; i++) {
-            int speed = (int) (1 + Math.random() * 6);
+            int speed = (int) (1 + Math.random() * 4);
             int numberOfHP = (int) (4 + Math.random() * 11);
             int attackPower = (int) (1 + Math.random() * 4);
             listOfPredator.add(new Predator(speed, numberOfHP, attackPower));

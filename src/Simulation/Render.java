@@ -3,7 +3,7 @@ package Simulation;
 import Entities.*;
 
 public class Render {
-    public void fieldRendering(MapWorld map) {
+    public static void fieldRendering(MapWorld map) {
         for (int i = 0; i < map.getLengthX(); i++) {
             for (int j = 0; j < map.getLengthY(); j++) {
                 Entity currentEntity = map.getMainCollectionOfLocation().get(i + "," + j);

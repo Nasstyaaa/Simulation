@@ -7,7 +7,7 @@ import java.util.*;
 
 
 public class FindObject {
-    public ArrayList<String> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
+    public static ArrayList<String> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
         ArrayList<ArrayList<String>> roads = new ArrayList<>();
 
         Map<String, Boolean> visitedEntity = new HashMap<>();
@@ -46,6 +46,7 @@ public class FindObject {
                         if (currentEntity != null && currentEntity.getClass().equals(type)) {
                             ArrayList<String> newRoad = new ArrayList<>(currentRoad);
                             newRoad.add(neighbourX + "," + neighbourY);
+                            newRoad.remove(0);
                             return newRoad;
                         } else if (currentEntity == null && !visitedEntity.get(neighbourX + "," + neighbourY)) {
                             ArrayList<String> newRoad = new ArrayList<>(currentRoad);
@@ -62,7 +63,7 @@ public class FindObject {
         return null;
     }
 
-    private void addIfNotExists(ArrayList<ArrayList<String>> newRoads, ArrayList<String> newRoad) {
+    private static void addIfNotExists(ArrayList<ArrayList<String>> newRoads, ArrayList<String> newRoad) {
         for (ArrayList<String> existingItem : newRoads) {
             if (existingItem.equals(newRoad)) {
                 return;
