@@ -19,9 +19,11 @@ public class FindObject {
 
 
         String[] coordinatesEntity = map.findKey(initialEntity).split(",");
+        if(coordinatesEntity.length == 0) {
+            return null;
+        }
         String locationX = coordinatesEntity[0];
         String locationY = coordinatesEntity[1];
-
 
         ArrayList<String> coordinatesList = new ArrayList<>();
         coordinatesList.add(locationX + "," + locationY);
@@ -57,6 +59,8 @@ public class FindObject {
                     }
                 }
             }
+            if (newRoads.isEmpty())
+                return null;
             roads.clear();
             roads.addAll(newRoads);
         }
