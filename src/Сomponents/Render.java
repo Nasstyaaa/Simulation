@@ -4,6 +4,7 @@ import Entities.*;
 
 public class Render {
     public static void fieldRendering(MapWorld map) {
+        System.out.println();
         for (int i = 0; i < map.getLengthX(); i++) {
             for (int j = 0; j < map.getLengthY(); j++) {
                 Entity currentEntity = map.getMainCollectionOfLocation().get(i + "," + j);

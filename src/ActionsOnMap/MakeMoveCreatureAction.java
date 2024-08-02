@@ -19,6 +19,8 @@ public class MakeMoveCreatureAction implements Action{
         }
 
         int numberOfCreature = (int) (Math.random() * allCreature.size());
+        System.out.print("животное с координатами" + "\uD83D\uDD3A"+ "(" + map.findKey(allCreature.get(numberOfCreature)) + ")");
         allCreature.get(numberOfCreature).makeMove(map);
+        System.out.println(" переместилось/атаковало на" + "\uD83D\uDD3B" + "(" + map.findKey(allCreature.get(numberOfCreature)) + ")");
     }
 }
