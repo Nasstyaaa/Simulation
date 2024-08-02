@@ -1,7 +1,7 @@
 package Entities;
 
 import Actions.FindObject;
-import Simulation.MapWorld;
+import Сomponents.MapWorld;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class Herbivore extends Creature {
 
 
     @Override
-    public ArrayList<Herbivore> createObjectOnMap(MapWorld map) {
+    public ArrayList<Herbivore> createObjects(MapWorld map) {
         int sizeMap = (map.getLengthY() * map.getLengthX()) / 6;
         ArrayList<Herbivore> listOfHerbivore = new ArrayList<>();
         for (int i = 0; i < sizeMap; i++) {
@@ -37,9 +37,6 @@ public class Herbivore extends Creature {
             int numberOfHP = (int) (4 + Math.random() * 11);
             listOfHerbivore.add(new Herbivore(speed, numberOfHP));
         }
-        map.addObjectsOnMap(listOfHerbivore);
         return listOfHerbivore;
     }
-
-
 }

@@ -1,12 +1,12 @@
 package Entities;
 
-import Simulation.MapWorld;
+import Сomponents.MapWorld;
 
 import java.util.ArrayList;
 
 public abstract class Entity {
 
-    public abstract ArrayList<? extends Entity> createObjectOnMap(MapWorld map);
+    public abstract ArrayList<? extends Entity> createObjects(MapWorld map);
 
     public Entity(){
 

@@ -1,7 +1,7 @@
 package Actions;
 
 import Entities.Entity;
-import Simulation.MapWorld;
+import Сomponents.MapWorld;
 
 import java.util.*;
 

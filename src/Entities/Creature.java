@@ -1,6 +1,6 @@
 package Entities;
 
-import Simulation.MapWorld;
+import Сomponents.MapWorld;
 
 public abstract class Creature extends Entity {
     protected int speed;
