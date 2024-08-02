@@ -16,13 +16,7 @@ public class AddTreeAction extends AddObjectsAction {
                 numberOfEntity++;
         }
         if (numberOfEntity == 0) {
-            map.addObjectsOnMap(addObjects(map));
+            map.addObjectsOnMap(new Tree().createObjects(map));
         }
-    }
-
-    @Override
-    ArrayList<? extends Entity> addObjects(MapWorld map) {
-        Tree tree = new Tree();
-        return tree.createObjects(map);
     }
 }

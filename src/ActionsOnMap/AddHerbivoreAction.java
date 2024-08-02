@@ -17,13 +17,7 @@ public class AddHerbivoreAction extends AddObjectsAction {
                 numberOfEntity++;
         }
         if (numberOfEntity <= (map.getLengthY() * map.getLengthX()) / 15) {
-            map.addObjectsOnMap(addObjects(map));
+            map.addObjectsOnMap(new Herbivore().createObjects(map));
         }
-    }
-
-    @Override
-    ArrayList<? extends Entity> addObjects(MapWorld map) {
-        Herbivore herbivore = new Herbivore();
-        return herbivore.createObjects(map);
     }
 }

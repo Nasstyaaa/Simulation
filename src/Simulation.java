@@ -25,7 +25,6 @@ public class Simulation {
             if (count > 5)
                 break;
         }
-
     }
 
     public void pauseSimulation() {

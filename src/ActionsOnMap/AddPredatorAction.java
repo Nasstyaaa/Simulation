@@ -16,13 +16,8 @@ public class AddPredatorAction extends AddObjectsAction {
                 numberOfEntity++;
         }
         if (numberOfEntity == 0) {
-            map.addObjectsOnMap(addObjects(map));
+            map.addObjectsOnMap(new Predator().createObjects(map));
         }
     }
 
-    @Override
-    ArrayList<? extends Entity> addObjects(MapWorld map) {
-        Predator predator = new Predator();
-        return predator.createObjects(map);
-    }
 }

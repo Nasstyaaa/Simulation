@@ -16,13 +16,7 @@ public class AddGrassAction extends AddObjectsAction {
                 numberOfEntity++;
         }
         if (numberOfEntity <= (map.getLengthY() * map.getLengthX()) / 20) {
-            map.addObjectsOnMap(addObjects(map));
+            map.addObjectsOnMap(new Grass().createObjects(map));
         }
-    }
-
-    @Override
-    ArrayList<? extends Entity> addObjects(MapWorld map) {
-        Grass grass = new Grass();
-        return grass.createObjects(map);
     }
 }

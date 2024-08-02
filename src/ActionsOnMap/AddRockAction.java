@@ -16,13 +16,7 @@ public class AddRockAction extends AddObjectsAction {
                 numberOfEntity++;
         }
         if (numberOfEntity == 0) {
-            map.addObjectsOnMap(addObjects(map));
+            map.addObjectsOnMap(new Rock().createObjects(map));
         }
-    }
-
-    @Override
-    ArrayList<? extends Entity> addObjects(MapWorld map) {
-        Rock rock = new Rock();
-        return rock.createObjects(map);
     }
 }
