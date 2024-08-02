@@ -1,4 +1,4 @@
-package Actions;
+package AdditionalActions;
 
 import Entities.Entity;
 import Сomponents.MapWorld;
@@ -6,7 +6,7 @@ import Сomponents.MapWorld;
 import java.util.*;
 
 
-public class FindObject {
+public class FindObject{
     public static ArrayList<String> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
         ArrayList<ArrayList<String>> roads = new ArrayList<>();
 

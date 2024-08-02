@@ -1,29 +1,44 @@
-import Actions.PrepareSimulation;
-import Entities.*;
+import ActionsOnMap.*;
 import Сomponents.MapWorld;
 import Сomponents.Render;
 
-import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Map;
 
 public class Simulation {
-    public static void main(String[] args) {
-        MapWorld map = new MapWorld(10, 10);
-
-        Herbivore herbivore = new Herbivore();
-        Predator predator = new Predator();
-        Grass grass = new Grass();
-        Rock rock = new Rock();
-        Tree tree = new Tree();
-
-        ArrayList<Entity> entities = new ArrayList<>(herbivore.createObjects(map));
-        entities.addAll(predator.createObjects(map));
-        entities.addAll(grass.createObjects(map));
-        entities.addAll(rock.createObjects(map));
-        entities.addAll(tree.createObjects(map));
-
-        PrepareSimulation.prepare(map, entities);
-
+    private MapWorld map;
+    private int moveCounter;
+    List<Action> initActions = List.of(new AddGrassAction(), new AddPredatorAction(), new AddRockAction(), new AddTreeAction(), new AddHerbivoreAction());
+    List<Action> turnActions = List.of(new MakeMoveCreatureAction(), new AddHerbivoreAction(), new AddGrassAction());
+    public void nextTurn(MapWorld map) {
+        turnActions.forEach(action -> action.doAction(map));
         Render.fieldRendering(map);
+    }
+
+    public void startSimulation(MapWorld map) {
+        initActions.forEach(action -> action.doAction(map));
+        Render.fieldRendering(map);
+        int count = 0;
+        while(true){
+            nextTurn(map);
+            count++;
+            if (count > 5)
+                break;
+        }
+
+    }
+
+    public void pauseSimulation() {
+        System.out.println("pause");
+    }
+
+    public MapWorld getMap() {
+        return map;
+    }
+
+    public static void main(String[] args) {
+        Simulation simulation = new Simulation();
+        simulation.map = new MapWorld(10, 10);
+        simulation.startSimulation(simulation.getMap());
     }
 }

@@ -8,7 +8,5 @@ public abstract class Entity {
 
     public abstract ArrayList<? extends Entity> createObjects(MapWorld map);
 
-    public Entity(){
-
-    }
+    public Entity(){}
 }

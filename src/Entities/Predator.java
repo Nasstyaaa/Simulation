@@ -1,6 +1,6 @@
 package Entities;
 
-import Actions.FindObject;
+import AdditionalActions.FindObject;
 import Сomponents.MapWorld;
 
 import java.util.ArrayList;
