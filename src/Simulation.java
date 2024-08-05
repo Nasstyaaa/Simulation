@@ -31,8 +31,10 @@ public class Simulation {
                         continueSimulation = false;
                         System.out.println("Симуляция остановлена");
                         break;
+                    case (3):
+                        break;
                 }
-                Thread.sleep(5000);
+                Thread.sleep(3000);
             }catch (InterruptedException e) {
                 System.out.println("Что-то пошло не так...");
             }
@@ -47,9 +49,9 @@ public class Simulation {
 
     private int userInput() {
         Scanner in = new Scanner(System.in);
-        System.out.print("1-пауза  2-стоп\n");
+        System.out.print("1-пауза  2-стоп  3-следующий ход\n");
         int userLetter = Integer.parseInt(in.next());
-        if(userLetter != 1 && userLetter != 2){
+        if(userLetter != 1 && userLetter != 2 && userLetter != 3){
             System.out.println("Такой цифры нет, попробуйте ещё раз");
             userInput();
         }

@@ -11,11 +11,6 @@ public class MapWorld {
 
     public MapWorld(int lengthByX, int lengthByY) {
         mainCollectionOfLocation = new HashMap<>();
-        for (int i = 0; i < lengthByX; i++) {
-            for (int j = 0; j < lengthByY; j++) {
-                mainCollectionOfLocation.put(i + "," + j, null);
-            }
-        }
         lengthX = lengthByX;
         lengthY = lengthByY;
     }
@@ -44,12 +39,13 @@ public class MapWorld {
         }
     }
 
-    public String findKey(Entity entity) {
+    public synchronized String findKey(Entity entity) {
         Set<String> keys = mainCollectionOfLocation.keySet();
         for (String key : keys) {
             Entity currentEntity = mainCollectionOfLocation.get(key);
-            if (currentEntity != null && currentEntity.equals(entity))
+            if (currentEntity != null && currentEntity.equals(entity)) {
                 return key;
+            }
         }
         return null;
     }
