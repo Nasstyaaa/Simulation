@@ -1,6 +1,7 @@
 package ActionsOnMap;
 
 import Entities.Entity;
+import Entities.Grass;
 import Entities.Herbivore;
 import Сomponents.MapWorld;
 
@@ -8,16 +9,13 @@ import java.util.ArrayList;
 
 public class AddHerbivoreAction extends AddObjectsAction {
 
+    public AddHerbivoreAction(MapWorld map){
+        super.requiredQuantity = (map.getLengthY() * map.getLengthX()) / 15;
+        super.type = Herbivore.class;
+    }
+
     @Override
-    public synchronized void doAction(MapWorld map) {
-        ArrayList<Entity> allEntities = new ArrayList<>(map.getMainCollectionOfLocation().values());
-        int numberOfEntity = 0;
-        for (Entity entity : allEntities) {
-            if (entity instanceof Herbivore)
-                numberOfEntity++;
-        }
-        if (numberOfEntity <= (map.getLengthY() * map.getLengthX()) / 15) {
-            map.addObjectsOnMap(new Herbivore().createObjects(map));
-        }
+    ArrayList<? extends Entity> createObject(MapWorld map) {
+        return new Herbivore().createObjects(map);
     }
 }

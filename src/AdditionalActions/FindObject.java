@@ -9,6 +9,7 @@ import java.util.*;
 public class FindObject{
     public static ArrayList<String> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
         ArrayList<ArrayList<String>> roads = new ArrayList<>();
+
         Map<String, Boolean> visitedEntity = new HashMap<>();
         for (int i = 0; i < map.getLengthX(); i++) {
             for (int j = 0; j < map.getLengthY(); j++) {

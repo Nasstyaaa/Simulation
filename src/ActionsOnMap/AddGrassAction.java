@@ -7,16 +7,14 @@ import Сomponents.MapWorld;
 import java.util.ArrayList;
 
 public class AddGrassAction extends AddObjectsAction {
+
+    public AddGrassAction(MapWorld map){
+        super.requiredQuantity = (map.getLengthY() * map.getLengthX()) / 20;
+        super.type = Grass.class;
+    }
+
     @Override
-    public synchronized void doAction(MapWorld map) {
-        ArrayList<Entity> allEntities = new ArrayList<>(map.getMainCollectionOfLocation().values());
-        int numberOfEntity = 0;
-        for (Entity entity : allEntities) {
-            if (entity instanceof Grass)
-                numberOfEntity++;
-        }
-        if (numberOfEntity <= (map.getLengthY() * map.getLengthX()) / 20) {
-            map.addObjectsOnMap(new Grass().createObjects(map));
-        }
+    ArrayList<? extends Entity> createObject(MapWorld map) {
+        return new Grass().createObjects(map);
     }
 }

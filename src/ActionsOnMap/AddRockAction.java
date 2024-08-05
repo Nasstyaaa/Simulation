@@ -1,22 +1,21 @@
 package ActionsOnMap;
 
 import Entities.Entity;
+import Entities.Grass;
 import Entities.Rock;
 import Сomponents.MapWorld;
 
 import java.util.ArrayList;
 
 public class AddRockAction extends AddObjectsAction {
+
+    public AddRockAction(MapWorld map){
+        super.requiredQuantity = 0;
+        super.type = Rock.class;
+    }
+
     @Override
-    public synchronized void doAction(MapWorld map) {
-        ArrayList<Entity> allEntities = new ArrayList<>(map.getMainCollectionOfLocation().values());
-        int numberOfEntity = 0;
-        for (Entity entity : allEntities) {
-            if (entity instanceof Rock)
-                numberOfEntity++;
-        }
-        if (numberOfEntity == 0) {
-            map.addObjectsOnMap(new Rock().createObjects(map));
-        }
+    ArrayList<? extends Entity> createObject(MapWorld map) {
+        return new Rock().createObjects(map);
     }
 }
