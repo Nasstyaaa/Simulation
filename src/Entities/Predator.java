@@ -6,7 +6,7 @@ import Сomponents.MapWorld;
 import java.util.ArrayList;
 
 public class Predator extends Creature {
-    protected int attackPower;
+    private int attackPower;
 
     public int getAttackPower() {
         return attackPower;
