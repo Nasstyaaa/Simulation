@@ -45,14 +45,13 @@ public class MapWorld {
 
     public void add(ArrayList<? extends Entity> entitiesCollection) {
         for (Entity entity : entitiesCollection) {
-            int locationX = 0;
-            int locationY = 0;
-            Coordinate coordinate = new Coordinate(locationX, locationY);
-            while(isCoordinateExist(coordinate)){
-                locationX = (int) (Math.random() * lengthX);
-                locationY = (int) (Math.random() * lengthY);
+            Coordinate coordinate;
+            do {
+                int locationX = (int) (Math.random() * lengthX);
+                int locationY = (int) (Math.random() * lengthY);
                 coordinate = new Coordinate(locationX, locationY);
             }
+            while (isCoordinateExist(coordinate));
             entityMap.put(coordinate, entity);
         }
     }
