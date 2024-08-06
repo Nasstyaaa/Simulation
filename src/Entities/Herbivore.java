@@ -1,9 +1,11 @@
 package Entities;
 
 import AdditionalActions.FindObject;
+import Сomponents.Coordinate;
 import Сomponents.MapWorld;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Herbivore extends Creature {
 
@@ -15,18 +17,16 @@ public class Herbivore extends Creature {
     }
 
     public synchronized void makeMove(MapWorld map) {
-        ArrayList<String> foundPath = FindObject.find(map, this, Grass.class);
-        if (foundPath != null) {
-            map.getMainCollectionOfLocation().remove(map.findKey(this));
+        List<Coordinate> foundPath = FindObject.find(map, this, Grass.class);
+        if (!foundPath.isEmpty()) {
+            map.removeEntity(map.findCoordinate(this));
             if (foundPath.size() <= speed) {
-                map.getMainCollectionOfLocation().put(foundPath.get(foundPath.size() - 1), this);
-            }
-            else {
-                map.getMainCollectionOfLocation().put(foundPath.get(speed - 1), this);
+                map.putEntity(foundPath.get(foundPath.size() - 1), this);
+            } else {
+                map.putEntity(foundPath.get(speed - 1), this);
             }
         }
     }
-
 
     @Override
     public ArrayList<Herbivore> createObjects(MapWorld map) {

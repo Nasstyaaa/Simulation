@@ -1,82 +1,68 @@
 package AdditionalActions;
 
 import Entities.Entity;
+import Сomponents.Coordinate;
 import Сomponents.MapWorld;
 
 import java.util.*;
 
 
-public class FindObject{
-    public static ArrayList<String> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
-        ArrayList<ArrayList<String>> roads = new ArrayList<>();
+public class FindObject {
+    public static List<Coordinate> find(MapWorld map, Entity initialEntity, Class<? extends Entity> type) {
+        ArrayDeque<List<Coordinate>> roads = new ArrayDeque<>();
+        ArrayList<Coordinate> visitedCoordinates = new ArrayList<>();
 
-        Map<String, Boolean> visitedEntity = new HashMap<>();
-        for (int i = 0; i < map.getLengthX(); i++) {
-            for (int j = 0; j < map.getLengthY(); j++) {
-                visitedEntity.put(i + "," + j, false);
-            }
-        }
+        roads.add(List.of(map.findCoordinate(initialEntity)));
 
-        String key = map.findKey(initialEntity);
-        String locationX;
-        String locationY;
-        if (key != null) {
-            String[] coordinatesEntity = key.split(",");
-            locationX = coordinatesEntity[0];
-            locationY = coordinatesEntity[1];
+        while (!roads.isEmpty()) {
+            List<Coordinate> currentRoad = roads.pop();
+            Coordinate lastCoordinate = currentRoad.get(currentRoad.size() - 1);
 
-        } else {
-            return null;
-        }
-
-        ArrayList<String> coordinatesList = new ArrayList<>(List.of(locationX + "," + locationY));
-        roads.add(coordinatesList);
-        ArrayList<ArrayList<String>> newRoads = new ArrayList<>(roads);
-
-        while (visitedEntity.containsValue(false)) {
-            for (ArrayList<String> currentRoad : roads) {
-                newRoads.clear();
-                String[] currentCoordinates = currentRoad.get(currentRoad.size() - 1).split(",");
-                String currentLocationX = currentCoordinates[0];
-                String currentLocationY = currentCoordinates[1];
-
-                int[][] coordinatesNeighbours = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-                for (int[] coordinate : coordinatesNeighbours) {
-                    String neighbourX = String.valueOf((Integer.parseInt(currentLocationX) + coordinate[0]));
-                    String neighbourY = String.valueOf((Integer.parseInt(currentLocationY) + coordinate[1]));
-
-                    if (Integer.parseInt(neighbourX) >= 0 && Integer.parseInt(neighbourY) >= 0 &&
-                            Integer.parseInt(neighbourX) <= map.getLengthX() - 1 && Integer.parseInt(neighbourY) <= map.getLengthY() - 1) {
-                        Entity currentEntity = map.getMainCollectionOfLocation().get(neighbourX + "," + neighbourY);
-
-                        if (currentEntity != null && currentEntity.getClass().equals(type)) {
-                            ArrayList<String> newRoad = new ArrayList<>(currentRoad);
-                            newRoad.add(neighbourX + "," + neighbourY);
-                            newRoad.remove(0);
-                            return newRoad;
-                        } else if (currentEntity == null && !visitedEntity.get(neighbourX + "," + neighbourY)) {
-                            ArrayList<String> newRoad = new ArrayList<>(currentRoad);
-                            newRoad.add(neighbourX + "," + neighbourY);
-                            addIfNotExists(newRoads, newRoad);
-                        }
-                        visitedEntity.put(neighbourX + "," + neighbourY, true);
+            for (Coordinate neighboringCoordinate : findNeighbourCoordinates(lastCoordinate, map)) {
+                Entity currentEntity = map.getEntity(neighboringCoordinate);
+                if (currentEntity == null) {
+                    if (!visitedCoordinates.contains(neighboringCoordinate)) {
+                        visitedCoordinates.add(neighboringCoordinate);
+                        addNewRoad(roads, currentRoad, neighboringCoordinate);
                     }
+                } else if (currentEntity.getClass().equals(type)) {
+                    return getFoundRoad(currentRoad, neighboringCoordinate);
                 }
             }
-            if (newRoads.isEmpty())
-                return null;
-            roads.clear();
-            roads.addAll(newRoads);
-        }
-        return null;
-    }
-
-    private static void addIfNotExists(ArrayList<ArrayList<String>> newRoads, ArrayList<String> newRoad) {
-        for (ArrayList<String> existingItem : newRoads) {
-            if (existingItem.equals(newRoad)) {
-                return;
+            if (roads.isEmpty()){
+                return new ArrayList<>();
             }
         }
-        newRoads.add(newRoad);
+        throw new NullPointerException("Ошибка...Путь не найден");
+    }
+
+
+    private static List<Coordinate> findNeighbourCoordinates(Coordinate lastCoordinate, MapWorld map) {
+        List<Coordinate> neighboringCoordinates = new ArrayList<>();
+        int[][] coordinatesNeighbours = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int[] coordinate : coordinatesNeighbours) {
+            int neighbourX = lastCoordinate.getPointX() + coordinate[0];
+            int neighbourY = lastCoordinate.getPointY() + coordinate[1];
+
+            if (neighbourX >= 0 && neighbourX <= map.getLengthX() - 1
+                    && neighbourY >= 0 && neighbourY <= map.getLengthY() - 1) {
+                neighboringCoordinates.add(new Coordinate(neighbourX, neighbourY));
+            }
+        }
+        return neighboringCoordinates;
+    }
+
+
+    private static List<Coordinate> getFoundRoad(List<Coordinate> currentRoad, Coordinate neighboringCoordinate) {
+        List<Coordinate> foundPath = new ArrayList<>(currentRoad);
+        foundPath.add(neighboringCoordinate);
+        foundPath.remove(0);
+        return foundPath;
+    }
+
+    private static void addNewRoad(ArrayDeque<List<Coordinate>> roads, List<Coordinate> currentRoad, Coordinate neighboringCoordinate) {
+        List<Coordinate> foundRoad = new ArrayList<>(currentRoad);
+        foundRoad.add(neighboringCoordinate);
+        roads.add(foundRoad);
     }
 }

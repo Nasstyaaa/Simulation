@@ -27,4 +27,8 @@ public abstract class Creature extends Entity {
     }
 
     public abstract void makeMove(MapWorld map);
+
+    public boolean isDead(){
+        return this.numberOfHP <= 0;
+    }
 }

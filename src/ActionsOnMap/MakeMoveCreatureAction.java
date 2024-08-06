@@ -5,15 +5,22 @@ import Entities.Entity;
 import Сomponents.MapWorld;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MakeMoveCreatureAction implements Action {
     @Override
-    public void doAction(MapWorld map) {
-        ArrayList<Entity> allEntities = new ArrayList<>(map.getMainCollectionOfLocation().values());
-        for (Entity entity : allEntities) {
-            if (entity instanceof Creature) {
-                ((Creature) entity).makeMove(map);
+    public void perfom(MapWorld map) {
+        List<Creature> creaturesToMove = new ArrayList<>();
+        for (Entity entity : map.getAllEntities()) {
+            if (entity instanceof Creature){
+                creaturesToMove.add((Creature) entity);
             }
         }
+        creaturesToMove.forEach(entity -> {
+            if (!entity.isDead()) {
+                entity.makeMove(map);
+            }
+        });
     }
 }

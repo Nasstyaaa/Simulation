@@ -3,5 +3,5 @@ package ActionsOnMap;
 import Сomponents.MapWorld;
 
 public interface Action {
-    void doAction(MapWorld map);
+    void perfom(MapWorld map);
 }

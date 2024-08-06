@@ -5,12 +5,12 @@ import Entities.Entity;
 import java.util.*;
 
 public class MapWorld {
-    private static Map<String, Entity> mainCollectionOfLocation;
-    private static int lengthX;
-    private static int lengthY;
+    private Map<Coordinate, Entity> entityMap;
+    private int lengthX;
+    private int lengthY;
 
     public MapWorld(int lengthByX, int lengthByY) {
-        mainCollectionOfLocation = new HashMap<>();
+        entityMap = new HashMap<>();
         lengthX = lengthByX;
         lengthY = lengthByY;
     }
@@ -23,30 +23,48 @@ public class MapWorld {
         return lengthY;
     }
 
-    public Map<String, Entity> getMainCollectionOfLocation() {
-        return mainCollectionOfLocation;
+    public synchronized void removeEntity(Coordinate coordinate) {
+        entityMap.remove(coordinate);
     }
 
-    public void addObjectsOnMap(ArrayList<? extends Entity> entitiesCollection) {
+    public synchronized void putEntity(Coordinate coordinates, Entity entity) {
+        entityMap.put(coordinates, entity);
+    }
+
+    public synchronized Entity getEntity(Coordinate coordinate) {
+        return entityMap.get(coordinate);
+    }
+
+    public boolean isCoordinateExist(Coordinate coordinate) {
+        return entityMap.containsKey(coordinate);
+    }
+
+    public Collection<Entity> getAllEntities() {
+        return Collections.unmodifiableCollection(entityMap.values());
+    }
+
+    public void add(ArrayList<? extends Entity> entitiesCollection) {
         for (Entity entity : entitiesCollection) {
             int locationX = 0;
             int locationY = 0;
-            while(mainCollectionOfLocation.get(locationX + "," + locationY) != null){
+            Coordinate coordinate = new Coordinate(locationX, locationY);
+            while(isCoordinateExist(coordinate)){
                 locationX = (int) (Math.random() * lengthX);
                 locationY = (int) (Math.random() * lengthY);
+                coordinate = new Coordinate(locationX, locationY);
             }
-            mainCollectionOfLocation.put(locationX + "," + locationY, entity);
+            entityMap.put(coordinate, entity);
         }
     }
 
-    public synchronized String findKey(Entity entity) {
-        Set<String> keys = mainCollectionOfLocation.keySet();
-        for (String key : keys) {
-            Entity currentEntity = mainCollectionOfLocation.get(key);
+    public synchronized Coordinate findCoordinate(Entity entity) {
+        Set<Coordinate> coordinates = entityMap.keySet();
+        for (Coordinate coordinate : coordinates) {
+            Entity currentEntity = entityMap.get(coordinate);
             if (currentEntity != null && currentEntity.equals(entity)) {
-                return key;
+                return coordinate;
             }
         }
-        return null;
+        throw new NullPointerException("Ошибка...Обрабатывается животное, не существующее на карте");
     }
 }
