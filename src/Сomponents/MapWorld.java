@@ -43,17 +43,15 @@ public class MapWorld {
         return Collections.unmodifiableCollection(entityMap.values());
     }
 
-    public void add(ArrayList<? extends Entity> entitiesCollection) {
-        for (Entity entity : entitiesCollection) {
-            Coordinate coordinate;
-            do {
-                int locationX = (int) (Math.random() * lengthX);
-                int locationY = (int) (Math.random() * lengthY);
-                coordinate = new Coordinate(locationX, locationY);
-            }
-            while (isCoordinateExist(coordinate));
-            entityMap.put(coordinate, entity);
+    public void add(Entity entity) {
+        Coordinate coordinate;
+        do {
+            int locationX = (int) (Math.random() * lengthX);
+            int locationY = (int) (Math.random() * lengthY);
+            coordinate = new Coordinate(locationX, locationY);
         }
+        while (isCoordinateExist(coordinate));
+        entityMap.put(coordinate, entity);
     }
 
     public synchronized Coordinate findCoordinate(Entity entity) {

@@ -8,21 +8,14 @@ import java.util.Scanner;
 public class Simulation {
     private MapWorld map;
     private int moveCounter = 0;
-    private List<Action> initActions;
-    private List<Action> turnActions;
+    private List<Action> initActions = List.of(new ArrangeAllEntiitiesAction());;
+    private List<Action> turnActions = List.of(new MakeMoveCreatureAction(), new AddIfNotEnoughAction());
     private boolean paused = false;
     private static final int COMMAND_PAUSE = 1;
     private static final int COMMAND_STOP = 2;
 
     public Simulation(int lenghtX, int lenghtY) {
         this.map = new MapWorld(lenghtX, lenghtY);
-    }
-
-    public void initializeActions(MapWorld map) {
-        initActions = List.of(new AddGrassAction(map),
-                new AddPredatorAction(map), new AddRockAction(map), new AddTreeAction(map), new AddHerbivoreAction(map));
-
-        turnActions = List.of(new MakeMoveCreatureAction(), new AddHerbivoreAction(map), new AddGrassAction(map));
     }
 
     public MapWorld getMap() {
@@ -37,7 +30,6 @@ public class Simulation {
     }
 
     public void start(MapWorld map) {
-        initializeActions(map);
         boolean continueSimulation = true;
         initActions.forEach(action -> action.perfom(map));
 
