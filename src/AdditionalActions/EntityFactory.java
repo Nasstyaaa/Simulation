@@ -4,16 +4,14 @@ import Entities.*;
 
 public class EntityFactory {
     public Entity create(EntityType entityType) {
-        Entity entity = null;
-
-        switch (entityType) {
-            case ROCK -> entity = new Rock();
-            case GRASS -> entity = new Grass();
-            case TREE -> entity = new Tree();
-            case HERBIVORE -> entity = new Herbivore((int) (1 + Math.random() * 3), (int) (4 + Math.random() * 11));
-            case PREDATOR -> entity = new Predator((int) (1 + Math.random() * 4),
+        return switch (entityType) {
+            case ROCK -> new Rock();
+            case GRASS -> new Grass();
+            case TREE -> new Tree();
+            case HERBIVORE -> new Herbivore((int) (1 + Math.random() * 3), (int) (4 + Math.random() * 11));
+            case PREDATOR -> new Predator((int) (1 + Math.random() * 4),
                     (int) (4 + Math.random() * 11), (int) (1 + Math.random() * 4));
-        }
-        return entity;
+            default -> throw new IllegalArgumentException("Переданный тип сущности не поддерживается");
+        };
     }
 }
