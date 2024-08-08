@@ -5,8 +5,8 @@ import Entities.*;
 public class WorldRender {
     public static void render(MapWorld map) throws Exception {
         System.out.println();
-        for (int i = 0; i < map.getLengthX(); i++) {
-            for (int j = 0; j < map.getLengthY(); j++) {
+        for (int i = 0; i < map.getWidth(); i++) {
+            for (int j = 0; j < map.getHeight(); j++) {
                 Entity currentEntity = map.getEntity(new Coordinate(i, j));
                 if (currentEntity instanceof Herbivore) {
                     System.out.print(" " + "\uD83D\uDC01" + " ");
@@ -22,7 +22,7 @@ public class WorldRender {
                     System.out.print(" " + "\uD83D\uDFEB" + " ");
                 }
                 else {
-                    throw new Exception("Неизвестный тип сущности: " + currentEntity);
+                    throw new Exception("Unknown entity type: " + currentEntity);
                 }
             }
             System.out.println();

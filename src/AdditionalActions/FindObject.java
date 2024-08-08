@@ -33,7 +33,7 @@ public class FindObject {
                 return new ArrayList<>();
             }
         }
-        throw new NullPointerException("Ошибка...Путь не найден");
+        throw new NullPointerException("Error...path not found");
     }
 
 
@@ -41,11 +41,11 @@ public class FindObject {
         List<Coordinate> neighboringCoordinates = new ArrayList<>();
         int[][] coordinatesNeighbours = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         for (int[] coordinate : coordinatesNeighbours) {
-            int neighbourX = lastCoordinate.getPointX() + coordinate[0];
-            int neighbourY = lastCoordinate.getPointY() + coordinate[1];
+            int neighbourX = lastCoordinate.getX() + coordinate[0];
+            int neighbourY = lastCoordinate.getY() + coordinate[1];
 
-            if (neighbourX >= 0 && neighbourX <= map.getLengthX() - 1
-                    && neighbourY >= 0 && neighbourY <= map.getLengthY() - 1) {
+            if (neighbourX >= 0 && neighbourX <= map.getWidth() - 1
+                    && neighbourY >= 0 && neighbourY <= map.getHeight() - 1) {
                 neighboringCoordinates.add(new Coordinate(neighbourX, neighbourY));
             }
         }

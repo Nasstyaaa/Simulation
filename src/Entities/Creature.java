@@ -4,24 +4,24 @@ import Сomponents.MapWorld;
 
 public abstract class Creature extends Entity {
     protected int speed;
-    protected int numberOfHP;
+    protected int hp;
 
-    public int getNumberOfHP() {
-        return numberOfHP;
+    public int getHp() {
+        return hp;
     }
 
-    public void setNumberOfHP(int numberOfHP) {
-        this.numberOfHP = numberOfHP;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public Creature(int speed, int numberOfHP){
-        this.numberOfHP = numberOfHP;
+        this.hp = numberOfHP;
         this.speed = speed;
     }
 
     public abstract void makeMove(MapWorld map);
 
     public boolean isDead(){
-        return this.numberOfHP <= 0;
+        return this.hp <= 0;
     }
 }

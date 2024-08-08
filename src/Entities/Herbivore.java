@@ -7,12 +7,12 @@ import Сomponents.MapWorld;
 import java.util.List;
 
 public class Herbivore extends Creature {
-    public Herbivore(int speed, int numberOfHP) {
-        super(speed, numberOfHP);
+    public Herbivore(int speed, int hp) {
+        super(speed, hp);
     }
 
     @Override
-    public synchronized void makeMove(MapWorld map) {
+    public void makeMove(MapWorld map) {
         List<Coordinate> foundPath = FindObject.find(map, this, Grass.class);
         if (!foundPath.isEmpty()) {
             map.removeEntity(map.findCoordinate(this));

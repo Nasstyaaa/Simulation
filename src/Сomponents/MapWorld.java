@@ -6,32 +6,32 @@ import java.util.*;
 
 public class MapWorld {
     private Map<Coordinate, Entity> entityMap;
-    private int lengthX;
-    private int lengthY;
+    private int width;
+    private int height;
 
     public MapWorld(int lengthByX, int lengthByY) {
         entityMap = new HashMap<>();
-        lengthX = lengthByX;
-        lengthY = lengthByY;
+        width = lengthByX;
+        height = lengthByY;
     }
 
-    public int getLengthX() {
-        return lengthX;
+    public int getWidth() {
+        return width;
     }
 
-    public int getLengthY() {
-        return lengthY;
+    public int getHeight() {
+        return height;
     }
 
-    public synchronized void removeEntity(Coordinate coordinate) {
+    public void removeEntity(Coordinate coordinate) {
         entityMap.remove(coordinate);
     }
 
-    public synchronized void putEntity(Coordinate coordinates, Entity entity) {
+    public void putEntity(Coordinate coordinates, Entity entity) {
         entityMap.put(coordinates, entity);
     }
 
-    public synchronized Entity getEntity(Coordinate coordinate) {
+    public Entity getEntity(Coordinate coordinate) {
         return entityMap.get(coordinate);
     }
 
@@ -44,17 +44,18 @@ public class MapWorld {
     }
 
     public void add(Entity entity) {
+        Random random = new Random();
         Coordinate coordinate;
         do {
-            int locationX = (int) (Math.random() * lengthX);
-            int locationY = (int) (Math.random() * lengthY);
-            coordinate = new Coordinate(locationX, locationY);
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+            coordinate = new Coordinate(x, y);
         }
         while (isCoordinateExist(coordinate));
         entityMap.put(coordinate, entity);
     }
 
-    public synchronized Coordinate findCoordinate(Entity entity) {
+    public Coordinate findCoordinate(Entity entity) {
         Set<Coordinate> coordinates = entityMap.keySet();
         for (Coordinate coordinate : coordinates) {
             Entity currentEntity = entityMap.get(coordinate);
@@ -62,6 +63,6 @@ public class MapWorld {
                 return coordinate;
             }
         }
-        throw new NullPointerException("Ошибка...Обрабатывается животное, не существующее на карте");
+        throw new NullPointerException("Error...an animal that does not exist on the map is being processed");
     }
 }

@@ -6,8 +6,8 @@ import Сomponents.MapWorld;
 
 public class AddIfNotEnoughAction implements Action {
     @Override
-    public void perfom(MapWorld map) {
-        int sizeMap = map.getLengthX() * map.getLengthY();
+    public synchronized void perfom(MapWorld map) {
+        int sizeMap = map.getWidth() * map.getHeight();
         long totalEntitiesCount = map.getAllEntities().stream()
                 .filter(entity -> entity instanceof Herbivore || entity instanceof Grass)
                 .count();

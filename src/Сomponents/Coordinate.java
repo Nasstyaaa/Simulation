@@ -3,20 +3,20 @@ package Сomponents;
 import java.util.Objects;
 
 public class Coordinate {
-    private int pointX;
-    private int pointY;
+    private int x;
+    private int y;
 
     public Coordinate(int pointX, int pointY){
-        this.pointX = pointX;
-        this.pointY = pointY;
+        this.x = pointX;
+        this.y = pointY;
     }
 
-    public int getPointX() {
-        return pointX;
+    public int getX() {
+        return x;
     }
 
-    public int getPointY() {
-        return pointY;
+    public int getY() {
+        return y;
     }
 
     @Override
@@ -24,11 +24,11 @@ public class Coordinate {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Coordinate other = (Coordinate) obj;
-        return pointX == other.pointX && pointY == other.pointY;
+        return x == other.x && y == other.y;
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(pointX, pointY);
+        return Objects.hash(x, y);
     }
 }

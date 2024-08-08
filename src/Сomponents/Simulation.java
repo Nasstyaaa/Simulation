@@ -24,7 +24,7 @@ public class Simulation {
 
     public void nextTurn(MapWorld map) throws Exception {
         WorldRender.render(map);
-        System.out.printf("%d-пауза  %d-стоп " + "(Ход номер: %d) \n", COMMAND_PAUSE, COMMAND_STOP, moveCounter);
+        System.out.printf("%d-pause  %d-stop" + "(Move number: %d) \n", COMMAND_PAUSE, COMMAND_STOP, moveCounter);
         turnActions.forEach(action -> action.perfom(map));
         moveCounter++;
     }
@@ -57,7 +57,7 @@ public class Simulation {
                     break;
                 case (COMMAND_STOP):
                     continueSimulation = false;
-                    System.out.println("Симуляция остановлена");
+                    System.out.println("The simulation has been stopped");
                     break;
             }
         }
@@ -66,7 +66,7 @@ public class Simulation {
 
     public void pause() {
         paused = true;
-        System.out.println("Пауза...(Для продолжения введите любой символ или нажмите enter)");
+        System.out.println("Pause...To continue, type any character or press enter");
         Scanner in = new Scanner(System.in);
         in.nextLine();
         paused = false;
@@ -74,7 +74,7 @@ public class Simulation {
 
     private int userInput() {
         Scanner in = new Scanner(System.in);
-        int userLetter = -1;
+        int userLetter;
         while (true) {
             try {
                 userLetter = Integer.parseInt(in.next());
@@ -84,10 +84,10 @@ public class Simulation {
                     break;
                 }
                 else {
-                    System.out.println("Такой команды нет, попробуйте ещё раз");
+                    System.out.println("There is no such command, try again");
                 }
             } catch (NumberFormatException exception) {
-                System.out.println("Ошибка (это вообще не число), попробуйте ещё раз");
+                System.out.println("Error. Unknown command, try again");
                 paused = true;
             }
         }

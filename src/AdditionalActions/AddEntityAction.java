@@ -5,7 +5,7 @@ import Сomponents.MapWorld;
 
 public class AddEntityAction {
 
-    public AddEntityAction add(MapWorld map, int numberEntities, EntityType entityType) {
+    public synchronized AddEntityAction add(MapWorld map, int numberEntities, EntityType entityType) {
         EntityFactory factory = new EntityFactory();
         for (int i = 0; i < numberEntities; i++) {
             map.add(factory.create(entityType));
